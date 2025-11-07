@@ -5,6 +5,7 @@ import random
 Citations (Platform, Model)
 
 (Ollama, gemma3:1b)
+🦴 Code Skellies 🦴
 - ActionPotentialModel class
 - update_neurotransmitter func
 - run func
@@ -15,17 +16,39 @@ Citations (Platform, Model)
 '''
 
 class ActionPotentialModel:
-    def __init__(self, membrane="membrane", ion="", threshold="", ligand="", enzyme="", 
+    def __init__(self, membrane="", ion="", threshold="", ligand="", enzyme="", 
                  catalyst="", inhibitor="", presynaptic_neuron="", postsynaptic_neuron=""):
         
-        # Basic examples of each component of an Action Potential Cascade for general model creation
-        membranes = ["alpha-helix", "beta-helix", "beta-sheet", "(??)sigma-helix(??)", "(??)omega-helix(??)"]
+        # Presets for components of an Action Potential Cascade for general model creation
+        
+        membranes = ["alpha-helix", "beta-helix", "beta-sheet", 
+                     "(??)sigma-helix(??)", "(??)omega-helix(??)"]
+        
         ions = ['Na+', 'K+','Ca2+']
-        threshold = random.randint(-70, -55) if not threshold else self.threshold = threshold
+        
+        # (Ollama, gemma3:1b)
+        # transcribing to text to data structure
+        ligands = {
+            "Protein Ligands" : ["G protein-coupled", "tyrosine", "transmembrane, structural"],
+            "Neurotransmitters" : ["Dopamine", "Seratonin", "Norepinephrine", "Acetylcholine"],
+            "Hormones" : ["Estrogen, Testosterone, Insulin, Growth Hormone (Pituitary), Cortisol, Thyroxine"],
+            "Pharmaceuticals" : ["SSRIs", "Beta-blockers", "Statins", "opiods, antidepressants, analgesics, anticancerous"],
+            "Amino Acids" : ["Glycine, Histidine", "Glutamate", "Aspartate", "Glycine", "Gamma-Aminobutyric (GABA)"],
+            "Small Organic Molecules" : ["flavonoids, steroids, peptides, Glucose", "Adenosine Triphosphate", "NADH/NAD+"],
+            "Ion Ligands" : ["Potassium", "Sodium", "Calcium", "Magnesium"],
+            "Toxins" : ["Strychnine, Tetrodotoxin, Amanitin, Curare"],
+            "Plant/Microbe By-product" : ["Morphine, Quinine, Cyclosporine, Digoxin"],
+            "Fragrances" : ["Menthol", "Capsaicin", "Geosmin"],
+            "RC/Synthetics" : ["Isoproterenol", "Forskolin", "Fluorescent Tracers"]
+        } 
+
+        
+    
         
         # Initialization step for each component of the Action Potential Cascade
         membrane = random.choice(membranes) if not membrane else self.membrane = membrane
         ion = random.choice(ions) if not ion else self.ion = ion
+        threshold = random.randint(-70, -55) if not threshold else self.threshold = threshold
         
         self.threshold = threshold
         self.ligand = ligand
