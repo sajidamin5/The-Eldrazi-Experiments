@@ -41,6 +41,8 @@ class ActionPotentialModel:
             "Fragrances" : ["Menthol", "Capsaicin", "Geosmin"],
             "RC/Synthetics" : ["Isoproterenol", "Forskolin", "Fluorescent Tracers"]
         } 
+        
+        enzymes = ["Tyrosine Kinase, Phosphodiesterase", "Phopholipases", "Signal Transducing Kinases", "Proteases"]
 
         
     
