@@ -13,6 +13,9 @@ Citations (Platform, Model)
 (OpenAI, )
 
 (DeepSeek, )
+
+Glycosilation: Process of adding a carbohydrate to some other group (i.e. hydroxil, amino, lipid, etc.)
+- some proteins do not fold correctly unless they are glycosylated (PMID, 20301239)
 '''
 
 class ActionPotentialModel:
@@ -44,6 +47,15 @@ class ActionPotentialModel:
         
         enzymes = ["Tyrosine Kinase, Phosphodiesterase", "Phopholipases", "Signal Transducing Kinases", "Proteases"]
 
+        catalysts = {
+            "Homogenous" : ['Sulfuric Acid', 'Palladium'],
+            "Heterogeneous" : ['Palladium/Carbon', 'Raney Nickel', 'Platinum', 'Rhodium on Alumina', 'Zeolites'],
+            "Lewis Acid" : ['Alumnum Chloride, Boron Trifluoride', 'Ferric Chloride', 'Titanium Tetrachloride', 'Zinc Chloride'],
+            "Radical" : ['Azobisisobutyronitrile', 'Benzoyl Peroxide', 'Di-tert-butyl Peroxide', 'Fenton\'s Reagent', 'Persulfate Salts'],
+            "Organocatalysts" : []
+        }
+        
+        inhibitors = []
         
     
         
