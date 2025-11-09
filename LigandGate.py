@@ -55,7 +55,7 @@ class ActionPotentialModel:
             "Organocatalysts" : []
         }
         
-        inhibitors = []
+        inhibitors = ['cAMP', 'Calcium', 'Magnesium Ions', 'ATP', 'Lipid Hydrolases', 'Phospholipase A2', 'Lipid Phosphodiesterases', 'Proteasome Inhibitors']
         
     
         
