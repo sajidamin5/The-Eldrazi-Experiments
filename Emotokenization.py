@@ -28,4 +28,11 @@ def EmotionalTokenization(emotion=""):
     return 1
   else:
     return 0
-    
+
+# takes a dictionary of labeled funtions as a parameter with no cap size
+# this is not a new concept at all, I just am visualization optimzation of 
+# multi national economics using mathematics
+def MultimodalFunctionOptimzation(functions={}):
+  # this is already abstracted/derived, like legitametly we either apply something from a 
+  # a multivariable calc textbook or pump it through a model
+  return 777
