@@ -51,8 +51,7 @@ class ActionPotentialModel:
             "Homogenous" : ['Sulfuric Acid', 'Palladium'],
             "Heterogeneous" : ['Palladium/Carbon', 'Raney Nickel', 'Platinum', 'Rhodium on Alumina', 'Zeolites'],
             "Lewis Acid" : ['Alumnum Chloride, Boron Trifluoride', 'Ferric Chloride', 'Titanium Tetrachloride', 'Zinc Chloride'],
-            "Radical" : ['Azobisisobutyronitrile', 'Benzoyl Peroxide', 'Di-tert-butyl Peroxide', 'Fenton\'s Reagent', 'Persulfate Salts'],
-            "Organocatalysts" : []
+            "Radical" : ['Azobisisobutyronitrile', 'Benzoyl Peroxide', 'Di-tert-butyl Peroxide', 'Fenton\'s Reagent', 'Persulfate Salts']
         }
         
         inhibitors = ['cAMP', 'Calcium', 'Magnesium Ions', 'ATP', 'Lipid Hydrolases', 'Phospholipase A2', 'Lipid Phosphodiesterases', 'Proteasome Inhibitors']
@@ -60,14 +59,15 @@ class ActionPotentialModel:
     
         
         # Initialization step for each component of the Action Potential Cascade
-        membrane = random.choice(membranes) if not membrane else self.membrane = membrane
-        ion = random.choice(ions) if not ion else self.ion = ion
-        threshold = random.randint(-70, -55) if not threshold else self.threshold = threshold
+        # TODO: work out random choice for dictionary structures
+        self.membrane = random.choice(membranes) if not membrane else self.membrane = membrane
+        self.ion = random.choice(ions) if not ion else self.ion = ion
+        self.threshold = random.randint(-70, -55) if not threshold else self.threshold = threshold
+        self.catalyst = random.choice(catalysts) if not catalyst else self.catalyst = catalyst
+        self.inhibitor = random.choice(inhibitors) if not inhibitors else self.inhibitor = inhibitor
+        self.ligand = random.choice(ligands) if not ligands else self.ligand = ligand
+        self.enzyme = random.choice(enzyme) if not enzyme else self.enzyme = enzyme
         
-        self.threshold = threshold
-        self.ligand = ligand
-        self.enzyme = enzyme
-        self.catalyst = catalyst
         self.resultant_neurotransmitter = "" # Initialize for easy logging
 
     def update_neurotransmitter(self, ligand_concentration):
