@@ -102,14 +102,6 @@ class ActionPotentialModel:
         print(f"Presynaptic Membrane Initial Conditions:\n{pformat(self.initial_presynaptic_membrane_condition, indent=2)}\n")
         print(f"Postsynaptic Membrane Initial Conditions:\n{pformat(self.initial_postsynaptic_membrane_condition, indent=2)}\n")
     
-    def update_neurotransmitter(self, ligand_concentration):
-        """
-        Simulates the response of the neuron to a ligand.  This is a placeholder.
-        """
-        # In a real model, this would involve complex calculations.
-        # For this example, we just return a simple value.
-        return ligand_concentration  # Placeholder - replace with actual calculations
-
 async def main():
     #Example usage:
     ap_model = ActionPotentialModel()
