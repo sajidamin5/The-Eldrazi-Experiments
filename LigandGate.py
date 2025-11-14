@@ -70,15 +70,6 @@ class ActionPotentialModel:
         if self.ligands is not None: self.ligand = ligand
         if enzyme is not None : self.enzyme = enzyme
         
-        # init for pre synaptic membrane
-        self.membrane = random.choice(self.membranes)
-        self.ion = random.choice(self.ions)
-        self.threshold = random.randint(-70, -55)
-        self.catalyst = random.choice(random.choice(list(self.catalysts.values())))
-        self.inhibitor = random.choice(self.inhibitors)
-        self.ligand = random.choice(random.choice(list(self.ligands.values())))
-        self.enzyme = random.choice(self.enzymes)
-        
         self.initial_presynaptic_membrane_condition = self.initialize_membrane()
         self.initial_postsynaptic_membrane_condition = self.initialize_membrane()
         
