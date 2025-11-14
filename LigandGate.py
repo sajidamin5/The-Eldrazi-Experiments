@@ -25,14 +25,14 @@ class ActionPotentialModel:
         
         # Presets for components of an Action Potential Cascade for general model creation
         
-        membranes = ["alpha-helix", "beta-helix", "beta-sheet", 
+        self.membranes = ["alpha-helix", "beta-helix", "beta-sheet", 
                      "(??)sigma-helix(??)", "(??)omega-helix(??)"]
         
-        ions = ['Na+', 'K+','Ca2+']
+        self.ions = ['Na+', 'K+','Ca2+']
         
         # (Ollama, gemma3:1b)
         # transcribing to text to data structure
-        ligands = {
+        self.ligands = {
             "Protein Ligands" : ["G protein-coupled", "tyrosine", "transmembrane, structural"],
             "Neurotransmitters" : ["Dopamine", "Seratonin", "Norepinephrine", "Acetylcholine"],
             "Hormones" : ["Estrogen, Testosterone, Insulin, Growth Hormone (Pituitary), Cortisol, Thyroxine"],
@@ -46,16 +46,17 @@ class ActionPotentialModel:
             "RC/Synthetics" : ["Isoproterenol", "Forskolin", "Fluorescent Tracers"]
         } 
         
-        enzymes = ["Tyrosine Kinase, Phosphodiesterase", "Phopholipases", "Signal Transducing Kinases", "Proteases"]
+        self.enzymes = ["Tyrosine Kinase, Phosphodiesterase", "Phopholipases", "Signal Transducing Kinases", "Proteases"]
 
-        catalysts = {
+        self.catalysts = {
             "Homogenous" : ['Sulfuric Acid', 'Palladium'],
             "Heterogeneous" : ['Palladium/Carbon', 'Raney Nickel', 'Platinum', 'Rhodium on Alumina', 'Zeolites'],
             "Lewis Acid" : ['Alumnum Chloride, Boron Trifluoride', 'Ferric Chloride', 'Titanium Tetrachloride', 'Zinc Chloride'],
             "Radical" : ['Azobisisobutyronitrile', 'Benzoyl Peroxide', 'Di-tert-butyl Peroxide', 'Fenton\'s Reagent', 'Persulfate Salts']
         }
         
-        inhibitors = ['cAMP', 'Calcium', 'Magnesium Ions', 'ATP', 'Lipid Hydrolases', 'Phospholipase A2', 'Lipid Phosphodiesterases', 'Proteasome Inhibitors']
+        self.inhibitors = ['cAMP', 'Calcium', 'Magnesium Ions', 'ATP', 'Lipid Hydrolases', 
+                           'Phospholipase A2', 'Lipid Phosphodiesterases', 'Proteasome Inhibitors']
         
     
         # Initialization step for each component of the Action Potential Cascade
@@ -65,52 +66,50 @@ class ActionPotentialModel:
         if ion is not None : self.ion = ion
         if threshold is not None : self.threshold = threshold
         if catalyst is not None : self.catalyst = catalyst
-        if inhibitors is not None : self.inhibitor = inhibitor
-        if ligands is not None: self.ligand = ligand
+        if self.inhibitors is not None : self.inhibitor = inhibitor
+        if self.ligands is not None: self.ligand = ligand
         if enzyme is not None : self.enzyme = enzyme
         
         # init for pre synaptic membrane
-        self.membrane = random.choice(membranes)
-        self.ion = random.choice(ions)
+        self.membrane = random.choice(self.membranes)
+        self.ion = random.choice(self.ions)
         self.threshold = random.randint(-70, -55)
-        self.catalyst = random.choice(random.choice(list(catalysts.values())))
-        self.inhibitor = random.choice(inhibitors)
-        self.ligand = random.choice(random.choice(list(ligands.values())))
-        self.enzyme = random.choice(enzymes)
+        self.catalyst = random.choice(random.choice(list(self.catalysts.values())))
+        self.inhibitor = random.choice(self.inhibitors)
+        self.ligand = random.choice(random.choice(list(self.ligands.values())))
+        self.enzyme = random.choice(self.enzymes)
         
-        self.initial_presynaptic_membrane_condition = {"Membrane" : self.membrane, 
-                                                        "Ion" : self.ion, 
-                                                        "Threshold" : self.threshold, 
-                                                        "Catalyst" : self.catalyst, 
-                                                        "Inhibitor" : self.inhibitor, 
-                                                        "Ligand" : self.ligand, 
-                                                        "Enzyme" : self.enzyme}
-        # init for post synaptic membrane
-        self.membrane = random.choice(membranes)
-        self.ion = random.choice(ions)
-        self.threshold = random.randint(-70, -55)
-        self.catalyst = random.choice(random.choice(list(catalysts.values())))
-        self.inhibitor = random.choice(inhibitors)
-        self.ligand = random.choice(random.choice(list(ligands.values())))
-        self.enzyme = random.choice(enzymes)
-        
-        self.initial_postsynaptic_membrane_condition = {"Membrane" : self.membrane, 
-                                                        "Ion" : self.ion, 
-                                                        "Threshold" : self.threshold, 
-                                                        "Catalyst" : self.catalyst, 
-                                                        "Inhibitor" : self.inhibitor, 
-                                                        "Ligand" : self.ligand, 
-                                                        "Enzyme" : self.enzyme}
+        self.initial_presynaptic_membrane_condition = self.initialize_membrane()
+        self.initial_postsynaptic_membrane_condition = self.initialize_membrane()
         
         # need some function to determine adequate pre/post based on initial conditions.
         # i.e. calculate the resultant off of initial conditons [membrane, ion, threshold, catalyst, inhib ,ligand, enzyme]
         self.presynaptic_neuron = ""
         self.postsynaptic_neuron = ""
         self.resultant_neurotransmitter = ""
+        
+    def initialize_membrane(self):                
+        self.membrane = random.choice(self.membranes)
+        self.ion = random.choice(self.ions)
+        self.threshold = random.randint(-70, -55)
+        self.catalyst = random.choice(random.choice(list(self.catalysts.values())))
+        self.inhibitor = random.choice(self.inhibitors)
+        self.ligand = random.choice(random.choice(list(self.ligands.values())))
+        self.enzyme = random.choice(self.enzymes)
+
+        membrane = {"Membrane" : self.membrane, 
+            "Ion" : self.ion, 
+            "Threshold" : self.threshold, 
+            "Catalyst" : self.catalyst, 
+            "Inhibitor" : self.inhibitor, 
+            "Ligand" : self.ligand, 
+            "Enzyme" : self.enzyme}
+        
+        return membrane
 
     def display_initial_conditions(self):
-        print(f"Presynaptic Membrane Init Conds:\n{pformat(self.initial_presynaptic_membrane_condition, indent=2)}\n")
-        print(f"Postsynaptic Membrane Init Conds:\n{pformat(self.initial_postsynaptic_membrane_condition, indent=2)}\n")
+        print(f"Presynaptic Membrane Initial Conditions:\n{pformat(self.initial_presynaptic_membrane_condition, indent=2)}\n")
+        print(f"Postsynaptic Membrane Initial Conditions:\n{pformat(self.initial_postsynaptic_membrane_condition, indent=2)}\n")
     
     def update_neurotransmitter(self, ligand_concentration):
         """
