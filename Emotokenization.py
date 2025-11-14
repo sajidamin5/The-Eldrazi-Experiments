@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from collections import deque
+import random
 
 
 '''
@@ -10,6 +11,21 @@ Citations (Platform, Model)
 🦴 Code Skellies 🦴
 - compositions (a, b, c, composed_function)
 '''
+# takes a dictionary of labeled funtions as a parameter with no cap size
+# this is not a new concept at all, I just am visualization optimzation of 
+# multi national economics using mathematics -  Multimodal Function Optimizer
+def MFO(a, b, c, d):
+  # this is already abstracted/derived, like legitametly we either apply something from a 
+  # a multivariable calc textbook or pump it through a model
+  
+  # TODO: the novelty may be optimizating classical or inorganic functions (0 byproduct)
+  #       with 'quantum' or organic functions (>0 byproduct)
+  functions = {"Entity 1" : composition(a), "Entity 2" : multivar(b, c), "Entity 3" : simple_mult(d)}  
+  
+  ret = 0
+  for x in range(len(functions)):
+    ret *= functions.values(x)
+  return ret
 
 def EmotionalTokenization(emotion=""): 
   
@@ -34,52 +50,40 @@ def EmotionalTokenization(emotion=""):
   emotion = emotion.lower()
 
   if emotion in emotional_gradient:
-    return 1
-  else:
-    return 0
+    # grab the order and value index so we don't need multiple calls
+    order = emotional_gradient[emotion][0]
+    token_value = emotional_gradient[emotion][1]
+    return MFO(token_value, token_value, order, random.randint(0, 69))
 
-# takes a dictionary of labeled funtions as a parameter with no cap size
-# this is not a new concept at all, I just am visualization optimzation of 
-# multi national economics using mathematics
-
-def MultimodalFunctionOptimzation(functions={}):
-  # this is already abstracted/derived, like legitametly we either apply something from a 
-  # a multivariable calc textbook or pump it through a model
-  
-  # TODO: the novelty may be optimizating classical or inorganic functions (0 byproduct)
-  #       with 'quantum' or organic functions (>0 byproduct)
-  functions = {"Country 1" : composition(), "Country 2" : multivar(), "Country 3" : a()}  
-  return 777
-
-def a(x=0):
+def simple_mult(x=0):
   """
   A simple function that takes a value and returns a result.
   """
   return x * 2  # Example: doubles the input
 
-def b(x):
+def simple_add(x):
   """
   A function that applies a function to an input.
   """
   return x + 1
 
-def c(x):
+def simple_frac(x):
   """
   A function that applies a function to an input.
   """
-  return x * 3  # Example: multiplies the input by 3
+  return x / 3  # Example: multiplies the input by 3
 
 def composition(x):
   """
   A composition of functions.  Applies function B to function C of input x.
   """
-  return b(c(x))
+  return simple_frac(simple_add(simple_mult(x)))
 
 def multivar(y, z):
   """
   A multivariable function.  Result of multivar conditions on params y and z
   """
-  return y * z
+  return composition(y) * simple_frac(y*z)
 
 
 def a(x=0):
@@ -92,4 +96,8 @@ def a(x=0):
 # functions_test2 = {"fn1" : a()}
 
 # print(functions_test["fn1"])
-# print(functions_test2["fn1"])
+# print(functions_test2["fn1"]) 
+
+# Rage -> 1271 (non determenistic; pre factorization)
+# Rage -> None (deterministic: post factorization) *probably a bug*
+print(EmotionalTokenization("Rage"))
