@@ -1,6 +1,6 @@
 import asyncio
 import random
-from pprint import pprint
+from pprint import pformat
 
 '''
 Citations (Platform, Model)
@@ -69,6 +69,7 @@ class ActionPotentialModel:
         if ligands is not None: self.ligand = ligand
         if enzyme is not None : self.enzyme = enzyme
         
+        # init for pre synaptic membrane
         self.membrane = random.choice(membranes)
         self.ion = random.choice(ions)
         self.threshold = random.randint(-70, -55)
@@ -77,22 +78,39 @@ class ActionPotentialModel:
         self.ligand = random.choice(random.choice(list(ligands.values())))
         self.enzyme = random.choice(enzymes)
         
-        self.initial_membrane_condition = {"Membrane" : self.membrane, 
-                                           "Ion" : self.ion, 
-                                           "Threshold" : self.threshold, 
-                                           "Catalyst" : self.catalyst, 
-                                           "Inhibitor" : self.inhibitor, 
-                                           "Ligand" : self.ligand, 
-                                           "Enzyme" : self.enzyme}
+        self.initial_presynaptic_membrane_condition = {"Membrane" : self.membrane, 
+                                                        "Ion" : self.ion, 
+                                                        "Threshold" : self.threshold, 
+                                                        "Catalyst" : self.catalyst, 
+                                                        "Inhibitor" : self.inhibitor, 
+                                                        "Ligand" : self.ligand, 
+                                                        "Enzyme" : self.enzyme}
+        # init for post synaptic membrane
+        self.membrane = random.choice(membranes)
+        self.ion = random.choice(ions)
+        self.threshold = random.randint(-70, -55)
+        self.catalyst = random.choice(random.choice(list(catalysts.values())))
+        self.inhibitor = random.choice(inhibitors)
+        self.ligand = random.choice(random.choice(list(ligands.values())))
+        self.enzyme = random.choice(enzymes)
+        
+        self.initial_postsynaptic_membrane_condition = {"Membrane" : self.membrane, 
+                                                        "Ion" : self.ion, 
+                                                        "Threshold" : self.threshold, 
+                                                        "Catalyst" : self.catalyst, 
+                                                        "Inhibitor" : self.inhibitor, 
+                                                        "Ligand" : self.ligand, 
+                                                        "Enzyme" : self.enzyme}
         
         # need some function to determine adequate pre/post based on initial conditions.
         # i.e. calculate the resultant off of initial conditons [membrane, ion, threshold, catalyst, inhib ,ligand, enzyme]
         self.presynaptic_neuron = ""
         self.postsynaptic_neuron = ""
-        self.resultant_neurotransmitter = "" 
+        self.resultant_neurotransmitter = ""
 
     def display_initial_conditions(self):
-        return pprint(self.initial_membrane_condition)
+        print(f"Presynaptic Membrane Init Conds:\n{pformat(self.initial_presynaptic_membrane_condition, indent=2)}\n")
+        print(f"Postsynaptic Membrane Init Conds:\n{pformat(self.initial_postsynaptic_membrane_condition, indent=2)}\n")
     
     def update_neurotransmitter(self, ligand_concentration):
         """
@@ -101,31 +119,6 @@ class ActionPotentialModel:
         # In a real model, this would involve complex calculations.
         # For this example, we just return a simple value.
         return ligand_concentration  # Placeholder - replace with actual calculations
-
-
-    async def run(self, ctx):
-        """
-        Runs the action potential model.  Handles the command, input data, and output.
-        """
-
-        if self.membrane == "" or self.ion == "":  # Basic validation
-
-            await ctx.send("requires atleast a membrane and or ion")
-
-        resultant_neurotransmitter = self.update_neurotransmitter(self.ion)  # Initial update
-
-        # Simulate the action potential (a very simplified example)
-        if self.threshold > 0:
-            resultant_neurotransmitter += "Threshold reached!"
-
-        # Add more complex logic here, like:
-        #   -  Calculate the spike potential
-        #   -  Model ion channel dynamics
-        #   -  Include inhibitory/excitatory influences
-
-        await ctx.send(f"Action potential triggered: {resultant_neurotransmitter}")  # Send the result
-
-
 
 async def main():
     #Example usage:
