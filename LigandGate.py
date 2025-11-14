@@ -1,5 +1,6 @@
 import asyncio
 import random
+from pprint import pprint
 
 '''
 Citations (Platform, Model)
@@ -57,19 +58,42 @@ class ActionPotentialModel:
         inhibitors = ['cAMP', 'Calcium', 'Magnesium Ions', 'ATP', 'Lipid Hydrolases', 'Phospholipase A2', 'Lipid Phosphodiesterases', 'Proteasome Inhibitors']
         
     
-        
         # Initialization step for each component of the Action Potential Cascade
         # TODO: work out random choice for dictionary structures
-        self.membrane = random.choice(membranes) if not membrane else self.membrane = membrane
-        self.ion = random.choice(ions) if not ion else self.ion = ion
-        self.threshold = random.randint(-70, -55) if not threshold else self.threshold = threshold
-        self.catalyst = random.choice(catalysts) if not catalyst else self.catalyst = catalyst
-        self.inhibitor = random.choice(inhibitors) if not inhibitors else self.inhibitor = inhibitor
-        self.ligand = random.choice(ligands) if not ligands else self.ligand = ligand
-        self.enzyme = random.choice(enzyme) if not enzyme else self.enzyme = enzyme
         
-        self.resultant_neurotransmitter = "" # Initialize for easy logging
+        if membrane is not None : self.membrane = membrane
+        if ion is not None : self.ion = ion
+        if threshold is not None : self.threshold = threshold
+        if catalyst is not None : self.catalyst = catalyst
+        if inhibitors is not None : self.inhibitor = inhibitor
+        if ligands is not None: self.ligand = ligand
+        if enzyme is not None : self.enzyme = enzyme
+        
+        self.membrane = random.choice(membranes)
+        self.ion = random.choice(ions)
+        self.threshold = random.randint(-70, -55)
+        self.catalyst = random.choice(random.choice(list(catalysts.values())))
+        self.inhibitor = random.choice(inhibitors)
+        self.ligand = random.choice(random.choice(list(ligands.values())))
+        self.enzyme = random.choice(enzymes)
+        
+        self.initial_membrane_condition = {"Membrane" : self.membrane, 
+                                           "Ion" : self.ion, 
+                                           "Threshold" : self.threshold, 
+                                           "Catalyst" : self.catalyst, 
+                                           "Inhibitor" : self.inhibitor, 
+                                           "Ligand" : self.ligand, 
+                                           "Enzyme" : self.enzyme}
+        
+        # need some function to determine adequate pre/post based on initial conditions.
+        # i.e. calculate the resultant off of initial conditons [membrane, ion, threshold, catalyst, inhib ,ligand, enzyme]
+        self.presynaptic_neuron = ""
+        self.postsynaptic_neuron = ""
+        self.resultant_neurotransmitter = "" 
 
+    def display_initial_conditions(self):
+        return pprint(self.initial_membrane_condition)
+    
     def update_neurotransmitter(self, ligand_concentration):
         """
         Simulates the response of the neuron to a ligand.  This is a placeholder.
@@ -77,7 +101,6 @@ class ActionPotentialModel:
         # In a real model, this would involve complex calculations.
         # For this example, we just return a simple value.
         return ligand_concentration  # Placeholder - replace with actual calculations
-
 
 
     async def run(self, ctx):
@@ -107,7 +130,7 @@ class ActionPotentialModel:
 async def main():
     #Example usage:
     ap_model = ActionPotentialModel()
-    await ap_model.run()
+    return ap_model.display_initial_conditions()
 
 if __name__ == "__main__":
     asyncio.run(main())
