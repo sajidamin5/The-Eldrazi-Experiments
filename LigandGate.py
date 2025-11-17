@@ -102,6 +102,11 @@ class ActionPotentialModel:
         print(f"Presynaptic Membrane Initial Conditions:\n{pformat(self.initial_presynaptic_membrane_condition, indent=2)}\n")
         print(f"Postsynaptic Membrane Initial Conditions:\n{pformat(self.initial_postsynaptic_membrane_condition, indent=2)}\n")
     
+    #TODO: Add health and mana bars for phospholipid bilayer
+    # - phospholipid requires some amount of glucose/chloride (K/Na)
+    # - not certsin with one is health/mana
+    # - or even more generally -> hitpoints/resource
+    
 async def main():
     #Example usage:
     ap_model = ActionPotentialModel()
